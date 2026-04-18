@@ -1,0 +1,10 @@
+# Force a light theme so st.data_editor (Glide) paints BLACK text on white cells.
+# The canvas inside the grid reads these values via React, not CSS — so these are
+# the only knobs that actually change cell/header text color.
+# You MUST restart `streamlit run` after editing this file.
+[theme]
+base = "light"
+textColor = "#000000"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f1f5f9"
+primaryColor = "#7c3aed"

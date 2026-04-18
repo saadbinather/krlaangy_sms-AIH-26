@@ -90,8 +90,66 @@ label { color: #334155 !important; font-size: 0.82rem !important; font-weight: 6
 /* ── Checkbox ── */
 label[data-baseweb="checkbox"] { color: #334155 !important; text-transform: none !important; font-size: 0.95rem !important; letter-spacing: 0 !important; }
 
-/* ── Data editor ── */
-.stDataFrame, .dvn-scroller { background: #f1f5f9 !important; color: #0f172a !important; }
+/* ── Data editor (Glide) — only one in this app (Work Experience).
+   Glide paints text on <canvas> using --gdg-* vars on .stDataFrameGlideDataEditor.
+   Streamlit sets these inline; !important lets our CSS override them.
+   Applied globally because Streamlit 1.53 doesn't always emit st-key-* classes. */
+.stDataFrameGlideDataEditor,
+[data-testid="stDataFrame"] .stDataFrameGlideDataEditor,
+[data-testid="stDataEditor"] .stDataFrameGlideDataEditor,
+[data-testid="stDataFrame"],
+[data-testid="stDataEditor"] {
+    --gdg-text-dark: #f1f5f9 !important;
+    --gdg-text-medium: #cbd5e1 !important;
+    --gdg-text-light: #94a3b8 !important;
+    --gdg-text-bubble: #f1f5f9 !important;
+    --gdg-text-header: #e2e8f0 !important;
+    --gdg-text-group-header: #e2e8f0 !important;
+    --gdg-text-header-selected: #ffffff !important;
+ --gdg-bg-cell: #0f172a !important;
+    --gdg-bg-cell-medium: #1e293b !important;
+    --gdg-bg-header: #1e293b !important;
+    --gdg-bg-header-has-focus: #334155 !important;
+    --gdg-bg-header-hovered: #334155 !important;
+    --gdg-bg-header-selected: #3b0764 !important;
+    --gdg-bg-group-header: #1e293b !important;
+    --gdg-bg-group-header-hovered: #334155 !important;
+    --gdg-border-color: #334155 !important;
+    --gdg-horizontal-border-color: #334155 !important;
+    --gdg-fg-icon-header: #a78bfa !important;
+    --gdg-bg-icon-header: #1e293b !important;
+    --gdg-accent-color: #7c3aed !important;
+    --gdg-accent-fg: #ffffff !important;
+    --gdg-link-color: #a78bfa !important;
+}
+[data-testid="stDataFrame"] .dvn-scroller,
+[data-testid="stDataEditor"] .dvn-scroller {
+    background: #0f172a !important;
+    color: #f1f5f9 !important;
+}
+.gdg-growing-entry input,
+.gdg-growing-entry textarea,
+.gdg-input input,
+.gdg-input textarea {
+    color: #f1f5f9 !important;
+    background: #1e293b !important;
+    caret-color: #a78bfa !important;
+}
+}
+[data-testid="stDataFrame"] .dvn-scroller,
+[data-testid="stDataEditor"] .dvn-scroller {
+    background: #ffffff !important;
+    color: #000000 !important;
+}
+/* Editable overlay input (when you click a cell) */
+.gdg-growing-entry input,
+.gdg-growing-entry textarea,
+.gdg-input input,
+.gdg-input textarea {
+    color: #000000 !important;
+    background: #ffffff !important;
+    caret-color: #000000 !important;
+}
 
 /* ── Metrics ── */
 div[data-testid="metric-container"] {
@@ -827,10 +885,7 @@ def main():
             interests comes first; deadline urgency is only a small part of the score.
           </p>
           <div class="hero-pills">
-            <span class="hero-pill active">LLM Extraction</span>
-            <span class="hero-pill active">Deterministic Rank</span>
-            <span class="hero-pill active">CV Auto-fill</span>
-            <span class="hero-pill {groq_cls}">Groq {"Online" if _groq_ok else "Offline"}</span>
+          
           </div>
         </div>
         """,
@@ -845,7 +900,7 @@ def main():
         p = st.session_state.student_profile
 
         st.markdown(
-            '<div style="font-size:0.82rem;font-weight:600;color:#334155;text-transform:uppercase;'
+            '<div style="font-size:0.82rem;font-weight:600;color:#000000;text-transform:uppercase;'
             'letter-spacing:0.08em;margin-bottom:8px">Work Experience</div>',
             unsafe_allow_html=True,
         )
